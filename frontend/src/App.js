@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import { Container } from 'react-bootstrap';
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
+import { Outlet } from 'react-router-dom';
 
 
 const App = () => {
@@ -11,8 +12,7 @@ const App = () => {
     <Header />
       <main className='py-3'>
         <Container>
-          <h1>TradeMarket</h1>
-          <Home />
+          <Outlet />
         </Container>
       </main>
       <Footer />
