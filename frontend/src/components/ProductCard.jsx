@@ -13,7 +13,7 @@ const ProductCard = ({ product }) => {
     <Card className="mb-4 p-4 rounded" style={cardStyle}>
       <Link to={`/product/${product._id}`}>
         <img
-          src={`/products-and-images/${product.image}`}  
+          src={`/products-and-images/products-and-images/images/${product.image}`}  
           alt={product.name}
           className="card-img-top"
         />
