@@ -48,13 +48,11 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    reviews: [ReviewSchema],
+    reviews: [reviewSchema], // Fix: Use the correct variable name 'reviewSchema'
     rating: {
-        rating: {
-            type: Number,
-            required: true,
-            default: 0,
-        }
+        type: Number,
+        required: true,
+        default: 0,
     },
     numReviews: {
         type: Number, 
