@@ -7,6 +7,8 @@ import { createBrowserRouter, createRoutesFromElements, Route, Router, RouterPro
 import Home from './pages/Home';
 import ProductPage from './pages/ProductPage';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import Store from './Store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter(
@@ -19,11 +21,13 @@ const router = createBrowserRouter(
 )
 root.render(
   <React.StrictMode>
+    <Provider store={Store}>
     <RouterProvider router={router}>
       <Router>
         <App />
       </Router>
     </RouterProvider>
+    </Provider>
   </React.StrictMode>
 );
 

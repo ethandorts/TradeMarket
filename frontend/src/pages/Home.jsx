@@ -1,23 +1,18 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import ProductCard from '../components/ProductCard';
-import axios from 'axios';
+import { useGetProductsQuery } from '../slices/productsApiSlice';
+import ScreenLoader from '../components/ScreenLoader';
+import Message from '../components/Message';
+
 
 const Home = () => {
 
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    const ProductFetch = async () => {
-      const { data } = await axios.get('/api/products');
-      setProducts(data);
-    };
-
-    ProductFetch();
-  }, []);
+  const { data: products, isLoading, Error } = useGetProductsQuery();
 
   return (
+    <>
+    { isLoading ? (<ScreenLoader />): Error ? (<Message variant='danger'>{ Error?.data?.message || Error.error }</Message>) : (<> 
     <div className="container mt-3">
       <h1>Our Products</h1>
       <Row className="mt-3">
@@ -28,6 +23,9 @@ const Home = () => {
         ))}
       </Row>
     </div>
+    </>) }
+
+    </>
   );
 };
 
