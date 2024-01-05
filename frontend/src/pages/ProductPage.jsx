@@ -23,7 +23,7 @@ const ProductPage = () => {
 
   const AddToCartHelper = () => {
       Dispatch(AddToCart({ ...product, quantity }));
-      Navigate('/mycart');
+      Navigate('/basket');
   }
 
   if (Error) {
