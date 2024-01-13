@@ -1,14 +1,33 @@
 import React from 'react';
 import { Navbar, Nav, Container, Badge } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import LogoImage from '../assets/TradeMarket.png'; 
 import { LinkContainer } from 'react-router-bootstrap';
+import { NavDropdown } from 'react-bootstrap';
+import { useLogoutMutation } from '../slices/userApiSlice';
+import { logout } from '../slices/authenticationSlice';
 
 const Header = () => {
 
   const { cartItems } = useSelector((state) => state.cart);
-  
+  const { userInfo } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [logoutCall] = useLogoutMutation();
+
+  const LogoutHandler = async () => {
+    try {
+      await logoutCall().unwrap();
+      dispatch(logout());
+      navigate('/login');
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <header>
@@ -35,9 +54,22 @@ const Header = () => {
                 </Badge>
               )}</Nav.Link>
               </LinkContainer>
-              <LinkContainer to="/user">
-              <Nav.Link href="/user"><FaUser /> User</Nav.Link>
-              </LinkContainer>
+              {userInfo ? (
+                <NavDropdown title={userInfo.name} id='username'>
+                  <LinkContainer to='/profile'>
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Item onClick={LogoutHandler}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <LinkContainer to='/login'>
+                  <Nav.Link href='/login'>
+                    <FaUser /> Sign In
+                  </Nav.Link>
+                </LinkContainer>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

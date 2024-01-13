@@ -38,7 +38,7 @@ const RegisterUser = AsyncHandler(async (req, res) => {
     const NewUser = await User.create({
         name,
         email, 
-        password
+        password,
     });
 
     if (NewUser) {
@@ -72,8 +72,6 @@ const LogoutUser = AsyncHandler(async (req, res) => {
 // @access Public 
 const GetUserProfile = AsyncHandler(async (req, res) => {
     const user = await User.findById(req.user);
-
-    console.log('Found user', user);
 
     if (user) {
         res.status(200).json({

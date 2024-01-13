@@ -10,6 +10,8 @@ import BasketPage from './pages/BasketPage';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import Store from './Store';
+import LoginScreen from './components/LoginScreen';
+import RegisterScreen from './components/RegisterScreen';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter(
@@ -18,6 +20,8 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<Home />} />
       <Route path='/product/:id' element={<ProductPage />} />
       <Route path='/basket' element={<BasketPage />} />
+      <Route path='/login' element={<LoginScreen />} />
+      <Route path='/register' element={<RegisterScreen />} />
     </Route>
   )
 )
