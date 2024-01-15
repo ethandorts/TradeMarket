@@ -39,7 +39,7 @@ const RegisterScreen = () => {
             const res = await register({
                 email,
                 password,
-                name,  // Make sure you include the 'name' field
+                name, 
             }).unwrap();
             dispatch(setCredentials({...res}));
             navigate(redirect);
@@ -47,7 +47,7 @@ const RegisterScreen = () => {
             toast.error(error?.data?.message || error.error);
         }
     }
-    
+
   return (
     <FormLayout>
         <h1> Register Your Account </h1>

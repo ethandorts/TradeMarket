@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 dotenv.config();
 import { connectMongoDatabase } from './config/db.js';
 import ProductRoutes from './routes/ProductRoutes.js';
+import OrdersRoutes from './routes/OrdersRoutes.js';
 import UserRoutes from './routes/UserRoutes.js';
 import { NotFound, ErrorHandler } from './middleware/ErrorMiddleware.js';
 const port = process.env.PORT || 3001;
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/products', ProductRoutes);
 app.use('/api/users', UserRoutes);
+app.use('/api/orders', OrdersRoutes);
 app.use(NotFound);
 app.use(ErrorHandler);
 

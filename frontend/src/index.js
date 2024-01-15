@@ -12,6 +12,10 @@ import { Provider } from 'react-redux';
 import Store from './Store';
 import LoginScreen from './components/LoginScreen';
 import RegisterScreen from './components/RegisterScreen';
+import ShippingPage from './pages/ShippingPage';
+import PrivateRoute from './components/PrivateRoute';
+import PaymentPage from './pages/PaymentPage';
+import PlaceOrderPage from './pages/PlaceOrderPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter(
@@ -22,7 +26,11 @@ const router = createBrowserRouter(
       <Route path='/basket' element={<BasketPage />} />
       <Route path='/login' element={<LoginScreen />} />
       <Route path='/register' element={<RegisterScreen />} />
-    </Route>
+
+   <Route path='/shipping' element={<ShippingPage />} />
+   <Route path='/payment' element={<PaymentPage />} />
+   <Route path='/placeorder' element={<PlaceOrderPage />} />
+</Route>
   )
 )
 root.render(
