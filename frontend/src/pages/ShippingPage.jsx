@@ -13,15 +13,15 @@ const ShippingPage = () => {
 
     const [address, setAddress] = useState(ShippingAddress?.address || '');
     const [city, setCity] = useState(ShippingAddress?.city || '');
-    const [postalCode, setPostalCode] = useState(ShippingAddress?.postalCode || '');
-    const [country, setCountry] = useState(ShippingAddress?.country || '');
+    const [PostalCode, setPostalCode] = useState(ShippingAddress?.PostalCode || '');
+    const [Country, setCountry] = useState(ShippingAddress?.Country || '');
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(saveShippingAddress({ address, city, postalCode, country }));
+        dispatch(saveShippingAddress({ address, city, PostalCode, Country }));
         navigate('/payment');
     }
 
@@ -52,22 +52,22 @@ const ShippingPage = () => {
                     ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='postalCode' className='my-2'>
+            <Form.Group controlId='PostalCode' className='my-2'>
                 <Form.Label> Post Code </Form.Label>
                 <Form.Control 
                     type='text'
                     placeholder='Enter Post Code'
-                    value={postalCode}
+                    value={PostalCode}
                     onChange={(e) => setPostalCode(e.target.value)}
                     ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='country' className='my-2'>
+            <Form.Group controlId='Country' className='my-2'>
                 <Form.Label> Country </Form.Label>
                 <Form.Control 
                     type='text'
                     placeholder='Enter Country'
-                    value={country}
+                    value={Country}
                     onChange={(e) => setCountry(e.target.value)}
                     ></Form.Control>
             </Form.Group>

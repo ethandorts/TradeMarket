@@ -27,10 +27,10 @@ const router = createBrowserRouter(
       <Route path='/login' element={<LoginScreen />} />
       <Route path='/register' element={<RegisterScreen />} />
 
-   <Route path='/shipping' element={<ShippingPage />} />
-   <Route path='/payment' element={<PaymentPage />} />
-   <Route path='/placeorder' element={<PlaceOrderPage />} />
-</Route>
+    <Route path='/shipping' element={<ShippingPage />} />
+    <Route path='/payment' element={<PaymentPage />} />
+    <Route path='/placeorder' element={<PlaceOrderPage />} />
+    </Route>
   )
 )
 root.render(

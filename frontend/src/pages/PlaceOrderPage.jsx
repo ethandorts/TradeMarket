@@ -18,14 +18,17 @@ const PlaceOrderPage = () => {
 
   const PlaceOrderHelper = async () => {
     try {
+      const calculatedTotalPrice = Number(cart.TotalItemsPrice) + Number(cart.ShippingPrice) + Number(cart.TaxToPay);
+      const formattedTotalPrice = calculatedTotalPrice.toFixed(2);
+  
       const res = await CreateOrder({
         orderItems: cart.cartItems,
         ShippingAddress: cart.ShippingAddress,
         PaymentMethod: cart.PaymentMethod,
-        itemsPrice: cart.itemsPrice,
+        itemsPrice: cart.TotalItemsPrice,
         ShippingPrice: cart.ShippingPrice,
         TaxPrice: cart.TaxToPay,
-        TotalPrice: cart.OverallPrice
+        TotalPrice: formattedTotalPrice
       }).unwrap();
       dispatch(clearCartItems());
       navigate(`/order/${res._id}`);
@@ -33,10 +36,9 @@ const PlaceOrderPage = () => {
       console.error('MongoDB Save Error:', err);
       const errorMessage = err.message || 'An error occurred';
       toast.error(`Failed to place order. ${errorMessage}`);
-      // You may want to redirect the user to an error page or handle recovery
-      // Example: navigate('/error');
     }
   };
+  
 
   return (
     <>
@@ -111,7 +113,13 @@ const PlaceOrderPage = () => {
               <ListGroup.Item>
                 <Row>
                   <Col>Total Price: </Col>
-                  <Col>${cart.OverallPrice}</Col>
+                  <Col>
+                    ${(
+                      Number(cart.TotalItemsPrice) +
+                      Number(cart.ShippingPrice) +
+                      Number(cart.TaxToPay)
+                      ).toFixed(2)}
+                  </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
