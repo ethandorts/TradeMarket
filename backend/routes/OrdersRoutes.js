@@ -12,7 +12,7 @@ import { protect, AdminMiddleware } from '../middleware/authenticationMiddleware
 
 Router.route('/').post(protect, CreateOrder);
 Router.route('/myorders').get(protect, GetMyOrders);
-Router.route('/:id').get(protect, AdminMiddleware, GetOrderById);
+Router.route('/:id').get(protect, GetOrderById);
 Router.route('/:id/pay').put(protect, UpdateOrderToBePaid);
 Router.route('/:id/deliver').put(protect, AdminMiddleware, UpdateOrderToBeDelivered);
 Router.route('/').get(protect, AdminMiddleware, GetAllOrders);
