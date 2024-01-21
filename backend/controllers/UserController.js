@@ -118,28 +118,63 @@ const UpdateUserProfile = AsyncHandler(async (req, res) => {
 // @route GET /api/users
 // @access Admin
 const GetUsers = AsyncHandler(async (req, res) => {
-    res.send('Get Users');
+    const users = await User.find({});
+    res.status(200).json(users);
 });
 
 // @desc Delete a User
 // @route DELETE /api/users/:id
 // @access Admin
 const DeleteUser = AsyncHandler(async (req, res) => {
-    res.send('Delete a User');
-});
+    const user = await User.findById(req.params.id);
+        if (user) {
+            if(user.isAdmin) {
+                res.status(400);
+                throw new Error('Cannot delete an admin user')
+            }
+            await User.deleteOne({_id: req.params.id})
+            res.status(200).json({message: 'User was deleted successfully'});
+        } else {
+            res.status(404);
+            throw new Error('The user was not found');
+        }
+    });
 
 // @desc Get a User by ID
 // @route GET /api/users/:id
 // @access Admin
 const GetUserById = AsyncHandler(async (req, res) => {
-    res.send('Retrieve User By Id');
+    const user = await User.findById(req.params.id).select('-password');
+
+    if (user) {
+        res.status(200).json(user);
+    } else {
+        res.status(404);
+        throw new Error('User not found');
+    }
 });
 
 // @desc Update a User By ID
 // @route PUT /api/users/:id
 // @access Admin
 const UpdateUserByID = AsyncHandler(async (req, res) => {
-    res.send('Update User By Id');
+    const user = await User.findById(req.params.id);
+    if (user) {
+        user.name = req.body.name || user.name;
+        user.email = req.body.email || user.email;
+        user.isAdmin = Boolean(req.body.isAdmin);
+
+        const UpdatedUser = await user.save();
+        res.status(200).json({
+            _id: UpdatedUser._id,
+            name: UpdatedUser.name,
+            email: UpdatedUser.email,
+            isAdmin: UpdatedUser.isAdmin
+        });
+    } else {
+        res.status(404);
+        throw new Error('User was not found');
+    }
 });
 
 export {
